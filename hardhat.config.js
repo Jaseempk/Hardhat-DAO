@@ -29,12 +29,19 @@ module.exports = {
       chainId: 31337,
       blockConfirmations: 6,
       allowUnlimitedContractSize: true,
-      //accounts:[PRIVATE_KEY]
     },
     goerli: {
       chainId: 5,
       url: GOERLI_RPC_URL,
       accounts: [PRIVATE_KEY],
+    },
+    localhost:{
+      chainId: 31337,
+      blockConfirmations: 6,
+      gas: 2100000,
+      gasPrice: 8000000000,
+      allowUnlimitedContractSize: true,
+
     },
   },
   etherscan: {
