@@ -1,6 +1,7 @@
 const { ethers, network } = require("hardhat");
 const fs=require("fs")
 const{proposalsFile, developmentChains, VOTING_PERIOD}=require("../helper-hardhat-config")
+const { moveBlocks } = require("../utils/move-blocks")
 const index=0
 
 async function main(proposalIndex){
@@ -16,10 +17,12 @@ async function vote(proposalId,voteWay,reason){
     const governorContract=await ethers.getContract("GovernorContract")
     const voteTx=await governorContract.castVoteWithReason(proposalId,voteWay,reason)
     await voteTx.wait(1)
+    const proposalState=await governorContract.state(proposalId)
 
     if(developmentChains.includes(network.name)){
         await moveBlocks(VOTING_PERIOD + 1)
     }
+    console.log("you have voted...")
 
 }
 main(index)
